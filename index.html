@@ -1,240 +1,987 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>AyresIT — Ebooks & Produits Digitaux</title>
-  <meta name="description" content="AyresIT : ebooks pratiques (e-commerce, business digital, marketing, automatisation) pour passer de l’idée à la vente et scaler." />
-  <meta name="robots" content="index,follow" />
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AyresIT — Ebooks & Produits Digitaux</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF6B35;
+            --primary-dark: #E85A28;
+            --secondary: #004E89;
+            --accent: #FFD23F;
+            --dark: #0A1628;
+            --dark-soft: #1A2942;
+            --light: #F8F9FA;
+            --text: #E8EDF2;
+            --text-muted: #9BA8B8;
+            --gradient-1: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+            --gradient-2: linear-gradient(135deg, #004E89 0%, #006BA6 100%);
+            --gradient-3: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(0, 78, 137, 0.1) 100%);
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--dark);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 22, 40, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 107, 53, 0.2);
+            animation: slideInLeft 0.6s ease;
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 8rem 2rem 4rem;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255, 107, 53, 0.15) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(0, 78, 137, 0.15) 0%, transparent 50%);
+            z-index: 0;
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.5rem 1.2rem;
+            background: rgba(255, 107, 53, 0.1);
+            border: 1px solid rgba(255, 107, 53, 0.3);
+            border-radius: 50px;
+            color: var(--primary);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .hero h1 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, var(--text) 0%, var(--text-muted) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 0.8s ease 0.4s backwards;
+        }
+
+        .hero-highlight {
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            display: block;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 3rem;
+            animation: fadeInUp 0.8s ease 0.6s backwards;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.8s backwards;
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+
+        /* Features Grid */
+        .features {
+            padding: 6rem 2rem;
+            background: var(--dark-soft);
+        }
+
+        .features-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .feature-card {
+            padding: 2.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            transition: all 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+            box-shadow: 0 20px 60px rgba(255, 107, 53, 0.2);
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--gradient-1);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .feature-card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .feature-card ul {
+            list-style: none;
+            color: var(--text-muted);
+        }
+
+        .feature-card li {
+            padding-left: 1.5rem;
+            position: relative;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature-card li::before {
+            content: '→';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+        }
+
+        /* Products Section */
+        .products {
+            padding: 6rem 2rem;
+            background: var(--dark);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .products-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2.5rem;
+        }
+
+        .product-card {
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.05) 0%, rgba(0, 78, 137, 0.05) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 3rem;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: var(--gradient-1);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+            border-color: var(--primary);
+        }
+
+        .product-tag {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: var(--gradient-1);
+            color: white;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 1.5rem;
+        }
+
+        .product-tag.coming-soon {
+            background: rgba(155, 168, 184, 0.3);
+            color: var(--text-muted);
+        }
+
+        .product-price {
+            font-family: 'Syne', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .product-card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .product-card p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .product-card ul {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .product-card li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .product-card li::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Why Section */
+        .why {
+            padding: 6rem 2rem;
+            background: var(--dark-soft);
+            position: relative;
+        }
+
+        .why-container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            margin-top: 4rem;
+        }
+
+        .why-card {
+            padding: 3rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 4px solid var(--primary);
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .why-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            transform: translateX(10px);
+        }
+
+        .why-card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .why-card p {
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 8rem 2rem;
+            background: var(--dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(255, 107, 53, 0.1) 0%, transparent 70%);
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .cta-container {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding: 4rem;
+            background: linear-gradient(135deg, rgba(255, 107, 53, 0.1) 0%, rgba(0, 78, 137, 0.1) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+        }
+
+        .cta h2 {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+        }
+
+        .cta-price {
+            font-family: 'Syne', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin: 2rem 0;
+        }
+
+        .cta-features {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin: 2rem 0 3rem;
+        }
+
+        .cta-feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-muted);
+        }
+
+        .cta-feature::before {
+            content: '✓';
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 6rem 2rem;
+            background: var(--dark-soft);
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            margin-bottom: 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: var(--primary);
+        }
+
+        .faq-question {
+            padding: 1.8rem 2rem;
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.5rem;
+            color: var(--primary);
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+        }
+
+        .faq-answer p {
+            padding: 0 2rem 2rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 2rem;
+            background: var(--dark);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .footer-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 1.5rem;
+            }
+
+            .hero {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .products-grid,
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .cta-container {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .cta-features {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* Scroll Reveal */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
-
 <body>
-  <header class="container header">
-    <a class="brand" href="#">
-      <img class="logo" src="assets/ayresit-logo.png" alt="AyresIT" />
-      <span class="brand-text">AyresIT</span>
-    </a>
-
-    <nav class="nav">
-      <a href="#ebooks">Ebooks</a>
-      <a href="#why">Pourquoi</a>
-      <a href="#faq">FAQ</a>
-      <a class="btn btn-small" href="#acheter">Acheter</a>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <div class="logo">AyresIT</div>
+            <ul class="nav-links">
+                <li><a href="#ebooks">Ebooks</a></li>
+                <li><a href="#why">Pourquoi</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#acheter">Acheter</a></li>
+            </ul>
+        </div>
     </nav>
-  </header>
 
-  <main>
-    <!-- HERO -->
-    <section class="hero container">
-      <div class="hero-text">
-        <p class="kicker">Ebooks PDF — Accès immédiat</p>
-
-        <h1>Des ebooks concrets pour lancer, vendre et automatiser en ligne</h1>
-
-        <p class="subtitle">
-          E-commerce, produits digitaux, marketing TikTok, pages de vente, automatisation…
-          Des guides courts et actionnables pour passer à l’exécution.
-        </p>
-
-        <div class="hero-cta">
-          <a class="btn" href="#ebooks">Voir les ebooks</a>
-          <a class="btn btn-ghost" href="#why">Comment ça marche</a>
-        </div>
-
-        <ul class="ticks">
-          <li>Multi-thématiques : e-commerce, business digital, marketing, automation</li>
-          <li>Format PDF — lisible sur téléphone et PC</li>
-          <li>Approche “step-by-step” : idée → création → vente → acquisition → optimisation</li>
-        </ul>
-
-        <div class="note">
-          Inspiré des étapes clés : création d’un produit digital, page de vente, marketing (TikTok/email/pubs), puis automatisation et optimisation. :contentReference[oaicite:1]{index=1}
-        </div>
-      </div>
-
-      <div class="hero-card">
-        <div class="card">
-          <div class="badge">EBOOK — 5€</div>
-            <div class="price">
-              <span class="old">19€</span>
-              <span class="new">5€</span>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-badge">📚 Ebooks PDF — Accès immédiat</div>
+            <h1>
+                Des ebooks concrets pour 
+                <span class="hero-highlight">lancer, vendre et automatiser</span>
+                en ligne
+            </h1>
+            <p>
+                E-commerce, produits digitaux, marketing TikTok, pages de vente, automatisation…
+                Des guides courts et actionnables pour passer à l'exécution.
+            </p>
+            <div class="hero-buttons">
+                <a href="#ebooks" class="btn btn-primary">Voir les ebooks →</a>
+                <a href="#why" class="btn btn-secondary">Comment ça marche</a>
             </div>
-            <a class="btn btn-full" href="#acheter">
-              Télécharger l’ebook maintenant
-            </a>
-            <p class="small muted">
-              Accès immédiat • PDF • Aucun abonnement
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+        <div class="features-container">
+            <div class="features-grid">
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Multi-thématiques</h3>
+                    <ul>
+                        <li>E-commerce & dropshipping</li>
+                        <li>Business digital & produits info</li>
+                        <li>Marketing & acquisition</li>
+                        <li>Automatisation & optimisation</li>
+                    </ul>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">📱</div>
+                    <h3>Format PDF universel</h3>
+                    <ul>
+                        <li>Lisible sur téléphone</li>
+                        <li>Compatible PC & tablette</li>
+                        <li>Téléchargement immédiat</li>
+                        <li>Aucun abonnement requis</li>
+                    </ul>
+                </div>
+                <div class="feature-card reveal">
+                    <div class="feature-icon">🚀</div>
+                    <h3>Approche step-by-step</h3>
+                    <ul>
+                        <li>Idée → création</li>
+                        <li>Vente → acquisition</li>
+                        <li>Optimisation → automatisation</li>
+                        <li>Résultats mesurables</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="ebooks">
+        <div class="section-header reveal">
+            <h2 class="section-title">Nos ebooks</h2>
+            <p class="section-subtitle">
+                Choisis ta thématique. Chaque ebook est conçu pour être appliqué rapidement.
             </p>
         </div>
-      </div>
-    </section>
+        <div class="products-grid">
+            <div class="product-card reveal">
+                <span class="product-tag">Produits digitaux</span>
+                <div class="product-price">5€</div>
+                <h3>Guide Drop Digital</h3>
+                <p>Créer, vendre et automatiser la vente d'un ebook/produit digital (TikTok + page de vente).</p>
+                <ul>
+                    <li>Idée & validation</li>
+                    <li>Création + outils</li>
+                    <li>Page de vente + pricing</li>
+                    <li>Marketing TikTok + automation</li>
+                </ul>
+                <a href="#acheter" class="btn btn-primary" style="width: 100%; justify-content: center;">Acheter — 5€</a>
+            </div>
 
-    <!-- LISTE EBOOKS -->
-    <section id="ebooks" class="container section">
-      <h2>Nos ebooks</h2>
-      <p class="muted">
-        Choisis ta thématique. Chaque ebook est conçu pour être appliqué rapidement.
-      </p>
+            <div class="product-card reveal">
+                <span class="product-tag coming-soon">Bientôt</span>
+                <div class="product-price" style="color: var(--text-muted);">—</div>
+                <h3>E-commerce Starter</h3>
+                <p>Les fondamentaux pour démarrer : niche, offre, acquisition, conversion.</p>
+                <ul>
+                    <li>Choisir un produit gagnant</li>
+                    <li>Créer une offre irrésistible</li>
+                    <li>Acquisition (contenu/ads)</li>
+                    <li>Optimiser la conversion</li>
+                </ul>
+                <button class="btn btn-secondary" style="width: 100%; justify-content: center;" disabled>Prochainement</button>
+            </div>
 
-      <div class="grid">
-        <!-- Ebook 1 -->
-        <article class="box ebook">
-          <div class="ebook-top">
-            <span class="tag">Produits digitaux</span>
-            <span class="tag tag-accent">5€</span>
-          </div>
-          <h3>Guide Drop Digital</h3>
-          <p>Créer, vendre et automatiser la vente d’un ebook/produit digital (TikTok + page de vente).</p>
-          <ul class="mini">
-            <li>Idée & validation</li>
-            <li>Création + outils</li>
-            <li>Page de vente + pricing</li>
-            <li>Marketing TikTok + automation</li>
-          </ul>
-          <a class="btn btn-full" href="#acheter">Acheter — 5€</a>
-        </article>
-
-        <!-- Ebook 2 (placeholder) -->
-        <article class="box ebook">
-          <div class="ebook-top">
-            <span class="tag">E-commerce</span>
-            <span class="tag">Bientôt</span>
-          </div>
-          <h3>E-commerce Starter</h3>
-          <p>Les fondamentaux pour démarrer : niche, offre, acquisition, conversion (version à venir).</p>
-          <ul class="mini">
-            <li>Choisir un produit</li>
-            <li>Créer une offre</li>
-            <li>Acquisition (contenu/ads)</li>
-            <li>Optimiser la conversion</li>
-          </ul>
-          <button class="btn btn-ghost btn-full" disabled>Prochainement</button>
-        </article>
-
-        <!-- Ebook 3 (placeholder) -->
-        <article class="box ebook">
-          <div class="ebook-top">
-            <span class="tag">Marketing</span>
-            <span class="tag">Bientôt</span>
-          </div>
-          <h3>TikTok Conversion</h3>
-          <p>Scripts, angles, hooks, structure : transformer les vues en clics et ventes (version à venir).</p>
-          <ul class="mini">
-            <li>Hooks & storytelling</li>
-            <li>Frameworks de scripts</li>
-            <li>CTA + page de vente</li>
-            <li>Optimisation</li>
-          </ul>
-          <button class="btn btn-ghost btn-full" disabled>Prochainement</button>
-        </article>
-      </div>
-
-      <p class="small muted" style="margin-top:14px">
-        Les thématiques suivent les piliers : création → lancement → marketing → optimisation → automatisation. :contentReference[oaicite:2]{index=2}
-      </p>
-    </section>
-
-    <!-- POURQUOI -->
-    <section id="why" class="container section">
-      <h2>Pourquoi AyresIT ?</h2>
-
-      <div class="two-col">
-        <div class="box">
-          <h3>Contenu actionnable</h3>
-          <p>
-            Pas de blabla : des étapes claires, des checklists, et une logique qui t’emmène vers
-            le résultat (vente, conversion, automatisation).
-          </p>
-          <ul class="ticks">
-            <li>Structure simple</li>
-            <li>Applicable vite</li>
-            <li>Objectif performance</li>
-          </ul>
+            <div class="product-card reveal">
+                <span class="product-tag coming-soon">Bientôt</span>
+                <div class="product-price" style="color: var(--text-muted);">—</div>
+                <h3>TikTok Conversion</h3>
+                <p>Scripts, angles, hooks : transformer les vues en clics et ventes.</p>
+                <ul>
+                    <li>Hooks & storytelling</li>
+                    <li>Frameworks de scripts</li>
+                    <li>CTA + page de vente</li>
+                    <li>Optimisation continue</li>
+                </ul>
+                <button class="btn btn-secondary" style="width: 100%; justify-content: center;" disabled>Prochainement</button>
+            </div>
         </div>
-
-        <div class="box">
-          <h3>Approche “système”</h3>
-          <p>
-            L’objectif n’est pas juste de “poster”, mais de mettre en place un système :
-            trafic → page de vente → paiement → livraison automatique → amélioration continue.
-          </p>
-          <ul class="ticks">
-            <li>Acquisition</li>
-            <li>Conversion</li>
-            <li>Automatisation</li>
-          </ul>
-        </div>
-      </div>
     </section>
 
-    <!-- ACHAT -->
-    <section id="acheter" class="container section buy">
-      <h2>Acheter un ebook</h2>
-      <p class="muted">
-        Clique sur le bouton ci-dessous. Après paiement, tu reçois le lien de téléchargement immédiatement.
-      </p>
-
-      <div class="buy-grid">
-        <div class="box card">
-          <h3>Guide Drop Digital — 5€</h3>
-          <p class="small muted">Paiement + livraison automatique via ta plateforme</p>
-
-          <!-- Remplace le lien par ton lien Gumroad/Payhip/Beacons -->
-          <a class="btn btn-full" id="buyLink" href="https://example.com" target="_blank" rel="noopener">
-            Acheter maintenant — 5€
-          </a>
-
-          <p class="small muted" style="margin-top:10px">
-            Conseil : garde un seul bouton principal pour maximiser la conversion.
-          </p>
+    <!-- Why Section -->
+    <section class="why" id="why">
+        <div class="why-container">
+            <div class="section-header reveal">
+                <h2 class="section-title">Pourquoi AyresIT ?</h2>
+            </div>
+            <div class="why-grid">
+                <div class="why-card reveal">
+                    <h3>💡 Contenu actionnable</h3>
+                    <p>
+                        Pas de blabla : des étapes claires, des checklists, et une logique qui t'emmène vers
+                        le résultat (vente, conversion, automatisation).
+                    </p>
+                    <ul style="list-style: none; color: var(--text-muted);">
+                        <li>→ Structure simple</li>
+                        <li>→ Applicable rapidement</li>
+                        <li>→ Objectif performance</li>
+                    </ul>
+                </div>
+                <div class="why-card reveal">
+                    <h3>⚙️ Approche "système"</h3>
+                    <p>
+                        L'objectif n'est pas juste de "poster", mais de mettre en place un système :
+                        trafic → page de vente → paiement → livraison automatique → amélioration continue.
+                    </p>
+                    <ul style="list-style: none; color: var(--text-muted);">
+                        <li>→ Acquisition de trafic</li>
+                        <li>→ Conversion optimisée</li>
+                        <li>→ Automatisation complète</li>
+                    </ul>
+                </div>
+            </div>
         </div>
-
-        <div class="box">
-          <h3>Inclus</h3>
-          <ul class="ticks">
-            <li>PDF immédiat</li>
-            <li>Étapes : idée → vente → marketing → optimisation</li>
-            <li>Applicable même débutant</li>
-          </ul>
-          <p class="small muted">
-            Les plateformes de vente gèrent paiement + livraison (automatisation). :contentReference[oaicite:3]{index=3}
-          </p>
-        </div>
-      </div>
     </section>
 
-    <!-- FAQ -->
-    <section id="faq" class="container section">
-      <h2>FAQ</h2>
-
-      <details class="faq">
-        <summary>Je reçois quoi après l’achat ?</summary>
-        <p>Un lien de téléchargement immédiat (PDF) après le paiement.</p>
-      </details>
-
-      <details class="faq">
-        <summary>Est-ce adapté si je débute ?</summary>
-        <p>Oui : structure étape par étape (création, lancement, marketing, optimisation). :contentReference[oaicite:4]{index=4}</p>
-      </details>
-
-      <details class="faq">
-        <summary>Vous allez ajouter d’autres thématiques ?</summary>
-        <p>Oui : e-commerce, marketing, automation, et d’autres sujets utiles. :contentReference[oaicite:5]{index=5}</p>
-      </details>
+    <!-- CTA Section -->
+    <section class="cta" id="acheter">
+        <div class="cta-container reveal">
+            <h2>Guide Drop Digital</h2>
+            <div class="cta-price">5€</div>
+            <p style="color: var(--text-muted); margin-bottom: 2rem;">
+                Paiement + livraison automatique. Téléchargement immédiat après achat.
+            </p>
+            <div class="cta-features">
+                <span class="cta-feature">PDF immédiat</span>
+                <span class="cta-feature">Étapes complètes</span>
+                <span class="cta-feature">Applicable débutant</span>
+            </div>
+            <a href="https://example.com" class="btn btn-primary" style="font-size: 1.1rem; padding: 1.2rem 3rem;">
+                Acheter maintenant — 5€ →
+            </a>
+        </div>
     </section>
-  </main>
 
-  <footer class="footer container">
-    <div class="footer-row">
-      <div class="footer-brand">
-        <img class="logo logo-small" src="assets/ayresit-logo.png" alt="AyresIT" />
-        <span class="small muted">© <span id="year"></span> AyresIT</span>
-      </div>
-      <span class="small muted">Ebooks & produits digitaux</span>
-    </div>
-  </footer>
+    <!-- FAQ Section -->
+    <section class="faq" id="faq">
+        <div class="faq-container">
+            <div class="section-header reveal">
+                <h2 class="section-title">FAQ</h2>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question">
+                    Je reçois quoi après l'achat ?
+                </div>
+                <div class="faq-answer">
+                    <p>Un lien de téléchargement immédiat (PDF) après le paiement. Vous recevez l'ebook directement par email et pouvez le télécharger instantanément.</p>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question">
+                    Est-ce adapté si je débute ?
+                </div>
+                <div class="faq-answer">
+                    <p>Oui, absolument ! La structure est conçue étape par étape : création, lancement, marketing, optimisation. Même sans expérience préalable, vous pouvez suivre le guide.</p>
+                </div>
+            </div>
+            <div class="faq-item reveal">
+                <div class="faq-question">
+                    Vous allez ajouter d'autres thématiques ?
+                </div>
+                <div class="faq-answer">
+                    <p>Oui ! Nous préparons des ebooks sur l'e-commerce, le marketing avancé, l'automatisation, et d'autres sujets utiles pour développer votre business en ligne.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <script src="script.js"></script>
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">AyresIT</div>
+        <p class="footer-text">© 2025 AyresIT — Ebooks & produits digitaux</p>
+    </footer>
+
+    <script>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // FAQ Toggle
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                const isActive = faqItem.classList.contains('active');
+                
+                // Close all FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                }
+            });
+        });
+
+        // Scroll reveal animation
+        const revealElements = document.querySelectorAll('.reveal');
+        
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const revealPoint = 100;
+                
+                if (elementTop < windowHeight - revealPoint) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Initial check
+
+        // Nav background on scroll
+        const nav = document.querySelector('nav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(10, 22, 40, 0.98)';
+                nav.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.3)';
+            } else {
+                nav.style.background = 'rgba(10, 22, 40, 0.95)';
+                nav.style.boxShadow = 'none';
+            }
+        });
+    </script>
 </body>
 </html>
