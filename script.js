@@ -1,5 +1,8 @@
 document.getElementById("year").textContent = new Date().getFullYear();
 
-// Remplace ces liens par tes liens réels
-// document.getElementById("gumroadLink").href = "https://ton-lien-gumroad";
-// document.getElementById("payhipLink").href = "https://ton-lien-payhip";
+/*
+  Remplace BUY_URL par ton lien de paiement (Gumroad / Payhip / Beacons).
+  Exemple Gumroad: https://toncompte.gumroad.com/l/ton-produit
+*/
+const BUY_URL = "https://example.com";
+document.getElementById("buyLink").href = BUY_URL;
